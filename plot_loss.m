@@ -1,4 +1,4 @@
-filename = 'log/INFO2015-04-29T22-20-15.txt';
+filename = 'log/INFO2016-03-10T09-36-05.txt';
 fid=fopen(filename,'r');
 regpat = 'Iteration [0-9]+, loss = [0-9\.]+';
 iter = zeros(100000,1);
