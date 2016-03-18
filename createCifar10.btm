@@ -1,0 +1,31 @@
+rem #!/usr/bin/env sh
+rem # This script converts the cifar data into leveldb format.
+@echo on
+setlocal
+
+set TOOLS=E:\home\tools\caffe-windows\bin\
+
+set EXAMPLE=examples\cifar10
+set DATA=data\cifar10
+set DBTYPE=leveldb
+
+echo "Creating %DBTYPE..."
+rfd %EXAMPLE\cifar10_train_%DBTYPE
+rfd %EXAMPLE\cifar10_test_%DBTYPE
+
+%TOOLS\convert_cifar.exe %DATA %EXAMPLE %DBTYPE
+%TOOLS\compute_image_mean -backend=%DBTYPE %EXAMPLE/cifar10_train_%DBTYPE %EXAMPLE/mean.binaryproto
+
+@echo off
+echo Done.
+
+rem rm -rf $EXAMPLE/cifar10_train_$DBTYPE $EXAMPLE/cifar10_test_$DBTYPE
+rem
+rem ./build/examples/cifar10/convert_cifar_data.bin $DATA $EXAMPLE $DBTYPE
+rem
+rem echo "Computing image mean..."
+rem
+rem ./build/tools/compute_image_mean -backend=$DBTYPE \
+rem   $EXAMPLE/cifar10_train_$DBTYPE $EXAMPLE/mean.binaryproto
+rem
+rem echo "Done."
